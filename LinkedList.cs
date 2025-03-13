@@ -1,7 +1,7 @@
 public interface ILinkedList<T>
 {
     bool IsEmpty { get; }
-    ILinkedList<T> Add(T item);
+    ILinkedList<T> AddToStart(T item);
     ILinkedList<T> Delete(T item);
 
     string PrintList();
@@ -20,20 +20,14 @@ public class ListNode<T> : ILinkedList<T>
 
     public bool IsEmpty => false;
 
-    public ILinkedList<T> Add(T item)
+    public ILinkedList<T> AddToStart(T item)
     {
         return new ListNode<T>(item, this);
     }
 
     public ILinkedList<T> Delete(T item)
     {
-        ILinkedList<T> tmp = this;
-        while (!tmp.IsEmpty) {
-            if (tmp.Value.Equals(tmp.Value)) {
-                
-            }
-            tmp = tmp.Next;
-        }
+        return this;
     }
 
     public string PrintList()
@@ -50,10 +44,9 @@ public class EmptyNode<T> : ILinkedList<T>
 
     public bool IsEmpty => true;
 
-    public ILinkedList<T> Add(T item)
+    public ILinkedList<T> AddToStart(T item)
     {
         return new ListNode<T>(item, this);
-
     }
 
     public ILinkedList<T> Delete(T item)
