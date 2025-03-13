@@ -1,6 +1,13 @@
 public class UTHashTable
 { 
-
+  /*
+  Corner case for HT 
+  - array for ht has size 10 inserting three (K, V) pairs where K hashes to the same index
+  - iint as K type, (1, value) (11, Value) (21, Value) [0]: empty [1] [2] [3] occupied with colliding keys 
+  - Delete (11, Value) => NULL, [0]: empty [2]: empty [1] [3] occupied with colliding keys 
+  - insert (21, Value) 
+  - [0]: empty [1]: (1, value) [2]: (21, Value) [3]:(21, Value) occupied with colliding keys
+  */
       [Fact]
       public void Test_Add()
       {
