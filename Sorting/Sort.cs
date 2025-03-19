@@ -1,42 +1,49 @@
-public static class Sorting
+public interface ISort<T> where T : IComparable<T>
 {
-    public static void BubbleSort(int[] _arr)
+    static abstract void InsertionSort(T[] data);
+    static abstract void BubbleSort(T[] data);
+    static abstract void MergeSort(T[] data, int low, int high);
+    // MergeSort with Orderby 
+}
+
+public class Sort<T> : ISort<T> where T : IComparable<T>
+{
+    public static void BubbleSort(T[] data)
     {
-        int index = _arr.Length;
-        bool sorted = false;
-        while (index > 1 && !sorted)
+        var somethingChanged = true;
+        while (somethingChanged)
         {
-            sorted = true;
-            for (int pointer = 1; pointer < index; pointer++)
+            somethingChanged = false;
+            for (int i = 0; i < data.Length - 1; i++)
             {
-                if (_arr[pointer - 1] > _arr[pointer])
+                if (data[i].CompareTo(data[i + 1]) > 0)
                 {
-                    int current = _arr[pointer - 1];
-                    _arr[pointer - 1] = _arr[pointer];
-                    _arr[pointer] = current;
-                    sorted = false;
+                    var temp = data[i + 1];
+                    data[i + 1] = data[i];
+                    data[i] = temp;
+                    somethingChanged = true;
                 }
             }
-            index--;
         }
     }
 
-    public static void InsertionSort(int[] _arr)
+    public static void InsertionSort(T[] data)
     {
-        for (int i = 1; i < _arr.Length; i++)
+        for (int j = 1; j < data.Length; j++)
         {
-            int key = _arr[i];
-            int j = i;
-            while (j > 0 && _arr[j - 1] > key)
+            var key = data[j];
+            var i = j - 1;
+            while (i >= 0 && data[i].CompareTo(key) > 0)
             {
-                _arr[j] = _arr[j - 1];
-                j--;
+                data[i + 1] = data[i];
+                i = i - 1;
             }
-            _arr[j] = key;
+            data[i + 1] = key;
         }
     }
 
-    static public void MergeSort(int[] array, int low, int high)
+
+    static public void MergeSort(T[] array, int low, int high)
     {
         if (low < high)
         {
@@ -47,12 +54,12 @@ public static class Sorting
         }
     }
 
-    static private void Merge(int[] array, int low, int middle, int high)
+    static public void Merge(T[] array, int low, int middle, int high)
     {
         var lengthPart1 = middle - low + 1;
         var lengthPart2 = high - middle;
-        int[] part1 = new int[lengthPart1];
-        int[] part2 = new int[lengthPart2];
+        T[] part1 = new T[lengthPart1];
+        T[] part2 = new T[lengthPart2];
         for (int index = 0; index < lengthPart1; index++)
             part1[index] = array[low + index];
         for (int index = 0; index < lengthPart2; index++)
