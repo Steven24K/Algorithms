@@ -106,7 +106,6 @@ public class BST<T> : IBST<T> where T : IComparable<T>
         }
     }
 
-    #region Traversal
     public string PostOrderTraversal() => PostOrderTraversal(Root);
     private string PreOrderTraversal(TreeNode<T>? currNode)
     {
@@ -148,7 +147,6 @@ public class BST<T> : IBST<T> where T : IComparable<T>
 
         return s;
     }
-    #endregion
 
     public bool Contains(T value) => Search(Root, value) == null ? false : true;
 
@@ -166,7 +164,6 @@ public class BST<T> : IBST<T> where T : IComparable<T>
         return Search(node.Left, value);
     }
 
-    #region  Remove Delete
     public bool Remove(T value) => DeleteValue(Root, value);
 
     //Bad code fix it next year
@@ -278,7 +275,6 @@ public class BST<T> : IBST<T> where T : IComparable<T>
     {
         throw new NotImplementedException();
     }
-    #endregion
 
 
 }
